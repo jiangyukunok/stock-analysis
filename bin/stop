@@ -1,0 +1,5 @@
+Run this in cygwin terminal
+
+taskkill /F /IM node.exe
+
+or use alias in ~/.bashrc to set command to "stopnode"
