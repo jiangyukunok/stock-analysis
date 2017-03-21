@@ -4,7 +4,7 @@ import $ from 'jquery'
 var GetRequest = React.createClass({
     getInitialState: function(){
         return {
-            testMessage: 'Failed!'
+            testMessage: ''
         }
     },
     componentDidMount: function(){

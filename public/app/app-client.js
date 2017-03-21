@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import GetRequest from './say-hello'
+import GetStockData from './get-stock-data'
 
 var CommentBox = React.createClass({
     render: function() {
         return (
             <div>
                 <GetRequest />
-                <div className="commentBox">
-                    I am a Yukun Jiang.
-                </div>
+                <GetStockData />
             </div>
         );
     }

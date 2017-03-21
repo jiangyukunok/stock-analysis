@@ -8,6 +8,7 @@ pyshell.send(data);
 
 pyshell.on('message', function (message) {
   // received a message sent from the Python script (a simple "print" statement)
+  console.log(message)
   console.log(message.elements);
   console.log(message.sum);
 });
