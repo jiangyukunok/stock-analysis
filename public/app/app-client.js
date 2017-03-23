@@ -7,7 +7,7 @@ var CommentBox = React.createClass({
     render: function() {
         return (
             <div>
-                <GetRequest />
+                {/* <GetRequest /> */}
                 <GetStockData />
             </div>
         );

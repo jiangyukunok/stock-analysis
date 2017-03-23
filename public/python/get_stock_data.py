@@ -19,13 +19,25 @@ ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
 ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
 d_data = dict(zip(ls_keys, ldf_data))
 
+
+for s_key in ls_keys:
+	d_data[s_key] = d_data[s_key].fillna(method='ffill')
+	d_data[s_key] = d_data[s_key].fillna(method='bfill')
+	d_data[s_key] = d_data[s_key].fillna(1.0)
+
+
 na_price = d_data['close'].values
 
-time_data = map((lambda x: str(x)),ldt_timestamps)
+time_data = map((lambda x: str(x).split()[0]),ldt_timestamps)
 #http://book.pythontips.com/en/latest/map_filter.html   review the python map,filter and reduce
 price_data = reduce((lambda x,y: x+y),na_price.tolist())
 
-res_map = {}
-res_map['time_data'] = time_data
-res_map['price_data'] = price_data
-print json.dumps(res_map)
+#res_map = {}
+#res_map['time_data'] = time_data
+#res_map['price_data'] = price_data
+
+res_array = []
+for i in range(0, len(time_data)):
+	res_array.append([time_data[i],price_data[i]])
+
+print json.dumps(res_array)
