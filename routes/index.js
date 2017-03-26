@@ -30,9 +30,10 @@ router.get('/getStockData', function(req, res) {
   
   pyshell.send(req.query.ticker);
   pyshell.on('message', function (message) {
-    console.log(message[0]);
+    console.log('Get Stock Data: ' + message.successful);
     res.send({
-      sendStockData: message 
+      sendSuccessful: message.successful,
+      sendStockData: message.data
     });
   });
   pyshell.end(function (err) {
