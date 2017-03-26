@@ -27,13 +27,14 @@ router.get('/getData', function(req, res) {
 /* Get the stock data including timestamps and price data*/
 router.get('/getStockData', function(req, res) {
   var pyshell = new PythonShell('public/python/get_stock_data.py', {mode: 'json'});
+  
+  pyshell.send(req.query.ticker);
   pyshell.on('message', function (message) {
-    console.log(message);
+    console.log(message[0]);
     res.send({
       sendStockData: message 
     });
   });
-
   pyshell.end(function (err) {
     if (err){
       console.log('<<<<<'+err+'>>>>>');

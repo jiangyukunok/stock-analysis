@@ -5,21 +5,30 @@ import Highcharts from 'highcharts'
 var GetStockData = React.createClass({
     getInitialState: function(){
         return {
+            ticker: '',
             stockData: []
         }
     },
     componentDidMount: function(){
-        $.get('/getStockData', function(res){
+    },
+    handleChange: function(event) {
+        this.setState({ticker: event.target.value});
+    },
+    handleSubmit: function(event) {
+        event.preventDefault(); // this will prevent from refreshing page!
+        this.getChart();
+    },
+    getChart: function() {
+        $.get('/getStockData', {ticker: this.state.ticker}, function(res){
             this.setState({
                 stockData: res.sendStockData
             });
-            
             Highcharts.chart('stockPlot', {
                 chart: {
                     zoomType: 'x'
                 },
                 title: {
-                    text: 'Apple Stock Price Year 2016'
+                    text: this.state.ticker + ' Stock Price Year 2016'
                 },
                 subtitle: {
                     text: document.ontouchstart === undefined ?
@@ -65,18 +74,24 @@ var GetStockData = React.createClass({
 
                 series: [{
                     type: 'area',
-                    name: 'AAPL',
+                    name: this.state.ticker,
                     data: this.state.stockData
                 }]
             });
             
-
         }.bind(this));
     },
     render: function(){
         return (
             <div>
                 {/* <div>{this.state.stockData}</div> */}
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                      Ticker:
+                      <input type="text" value={this.state.ticker} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Get Chart" />
+                </form>
                 <div id="stockPlot"></div>
             </div>
         )

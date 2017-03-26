@@ -7,8 +7,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from functools import reduce
 import json
+import sys
 
-ls_symbols = ["AAPL"]
+
+lines = sys.stdin.readlines()
+ticker = json.loads(lines[0])
+
+ls_symbols = [ticker]
 dt_start = dt.datetime(2016, 1, 1)
 dt_end = dt.datetime(2016, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)

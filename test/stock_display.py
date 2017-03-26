@@ -6,12 +6,14 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import pandas as pd
 
-ls_symbols = ["AAPL"]
+ls_symbols = ["FB"]
 dt_start = dt.datetime(2016, 1, 1)
 dt_end = dt.datetime(2016, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
+#c_dataobj = da.DataAccess('Yahoo', cachestalltime=0) is to remove cache,
+# this is useful when update the Yahoo datasource
 c_dataobj = da.DataAccess('Yahoo')
 ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
 ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
