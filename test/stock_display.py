@@ -23,7 +23,7 @@ else:
 
 	#c_dataobj = da.DataAccess('Yahoo', cachestalltime=0) is to remove cache,
 	# this is useful when update the Yahoo datasource
-	c_dataobj = da.DataAccess('Yahoo')
+	c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 	ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
 	ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
 	d_data = dict(zip(ls_keys, ldf_data))

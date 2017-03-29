@@ -36,7 +36,8 @@ var GetStockData = React.createClass({
                                 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'datetime'
+                        categories: this.state.stockData.time_data,
+                        tickInterval: 22 //each month 8 days for weekends
                     },
                     yAxis: {
                         title: {
@@ -76,7 +77,7 @@ var GetStockData = React.createClass({
                     series: [{
                         type: 'area',
                         name: this.state.ticker,
-                        data: this.state.stockData
+                        data: this.state.stockData.price_data
                     }]
                 });
             } else {

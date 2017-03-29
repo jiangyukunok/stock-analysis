@@ -45,9 +45,14 @@ else:
 	#http://book.pythontips.com/en/latest/map_filter.html   review the python map,filter and reduce
 	price_data = reduce((lambda x,y: x+y),na_price.tolist())
 
-	res_data = []
-	for i in range(0, len(time_data)):
-		res_data.append([time_data[i],price_data[i]])
+	#res_data = []
+	#for i in range(0, len(time_data)):
+	#	res_data.append([time_data[i],price_data[i]])
+
+	res_data = {}
+	res_data['time_data'] = time_data
+	res_data['price_data'] = price_data
+
 	res_map['successful'] = True
 	res_map['data'] = res_data
 
