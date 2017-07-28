@@ -36,7 +36,45 @@ var GetStockData = React.createClass({
                                 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'datetime'
+                        categories: this.state.stockData.time_data,
+                        tickInterval: 22, //each month 8 days for weekends
+                        plotLines: [
+                            {
+                                name: 'stock good news',
+                                color: 'yellow', // Color value
+                                value: 15,
+                                width: 8,
+                                label: {
+                                    text: 'event 1'
+                                },
+                                events: {
+                                    mouseover: function(e){
+                                        $('#events').html('<h4>' + this.axis.plotLinesAndBands[0].options.name + '<h4/>');
+                                        //console.log(this);
+                                    },
+                                    mouseout: function(e){
+                                        $('#events').empty();
+                                    }
+                                }
+                            },
+                            {   
+                                name: 'stock bad news',
+                                color: 'yellow',
+                                value: 30,
+                                width: 8,
+                                label: {
+                                    text: 'event 2'
+                                },
+                                events: {
+                                    mouseover: function(e){
+                                        $('#events').html('<h4>' + this.axis.plotLinesAndBands[1].options.name + '<h4/>');
+                                    },
+                                    mouseout: function(e){
+                                        $('#events').empty();
+                                    }
+                                }
+                            }
+                        ]
                     },
                     yAxis: {
                         title: {
@@ -76,7 +114,7 @@ var GetStockData = React.createClass({
                     series: [{
                         type: 'area',
                         name: this.state.ticker,
-                        data: this.state.stockData
+                        data: this.state.stockData.price_data
                     }]
                 });
             } else {
@@ -87,7 +125,6 @@ var GetStockData = React.createClass({
     render: function(){
         return (
             <div>
-                {/* <div>{this.state.stockData}</div> */}
                 <form onSubmit={this.handleSubmit}>
                     <label>
                       Ticker:
@@ -96,6 +133,7 @@ var GetStockData = React.createClass({
                     <input type="submit" value="Get Chart" />
                 </form>
                 <div id="stockPlot"></div>
+                <div id="events"></div>
             </div>
         )
     }
